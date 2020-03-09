@@ -1,5 +1,3 @@
-import java.util.concurrent.TimeUnit;
-
 /**
  * This class is the main class of IGIapp todo list application.
  */
@@ -7,16 +5,11 @@ import java.util.concurrent.TimeUnit;
 public class IGIapp {
 
     private Keyboard scanner;
-    private String toDelete;
-
 
     public IGIapp()
     {
         scanner = new Keyboard();
-
-
     }
-
 
     /**
      * Print the welcome message on the screen.
@@ -25,32 +18,45 @@ public class IGIapp {
         System.out.println("*****************");
         System.out.println("Welcome to IGIapp");
         System.out.println("You have 0 tasks todo and 0 tasks are done!");
-        System.out.println("No options to pick at the moment");
+        System.out.println("Pick an option:");
+        System.out.println("(1) Quit");
+        System.out.println("(2) Create a task");
         System.out.println("*****************");
-
-        toDelete = scanner.getInput();
-        System.out.println("\n You have written: " + toDelete);
     }
 
     /**
-     * Keep the app active for another 10 seconds to see the result of the action.
-     * It will be decommissioned when the text input will be functional.
+     * Run the application. User can type and system will respond. So far with limited options.
      */
-    private void wait10Seconds() {
-        System.out.println("App closes in 10 seconds");
-        try{
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            System.out.println("Waiting was interrupted");
+    private void runtime() {
+        String inputFromUser;
+        boolean runtimeActive = true;
+        while (runtimeActive) {
+            inputFromUser = scanner.getInput();
+            if (inputFromUser.equals("1")) {
+                System.out.println("You have chosen to quit. Have a nice day.");
+                runtimeActive = false;
+            } else if (inputFromUser.equals("2")) {
+                testOfTasks();
+            } else {
+                System.out.println("I don't understand. You can choose between options 1 and 2.");
+            }
         }
+    }
+
+    /**
+     * Method just for testing purposes of the task class. Will be deleted once command class is implemented.
+     */
+    private void testOfTasks()
+    {
+        Task testTask = new Task("Buy more groceries", "Doomsday preparation");
+        System.out.println(testTask.toString());
     }
 
     public static void main(String[] args) {
 
         IGIapp toDoList = new IGIapp();
         toDoList.welcomeText();
-
-
+        toDoList.runtime();
 
     }
 }

@@ -15,8 +15,6 @@ public class Keyboard
 
     public String getInput()
     {
-        String userInput;
-        userInput = reader.nextLine();
-        return userInput;
+        return reader.nextLine();
     }
 }
