@@ -38,6 +38,5 @@ public class IGIapp {
 
         IGIapp toDoList = new IGIapp();
         toDoList.runtime();
-
     }
 }

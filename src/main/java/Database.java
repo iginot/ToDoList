@@ -13,11 +13,10 @@ public class Database
         taskDatabase = new ArrayList<Task>();
     }
 
-    public String addTask()
+    public void addTask(String name, String project)
     {
-        Task testTask = new Task("Buy more groceries", "Doomsday preparation");
+        Task testTask = new Task(name, project);
         taskDatabase.add(testTask);
-        return "Task successfully added.";
     }
 
     public String showTasks()
@@ -26,11 +25,25 @@ public class Database
         if (taskDatabase.size() == 0) {
             output = "Database is empty.";
         } else {
+            output = "Current list of tasks contains:\n" +
+                     "*******************************\n";
             for (int counter = 0; counter < taskDatabase.size(); counter++) {
                 output = output + taskDatabase.get(counter).toString() + "\n";
             }
         }
         return output;
+    }
+
+    public String summarizeTasks()
+    {
+        String taskSummarization = "";
+        if (taskDatabase.size() > 0)
+        {
+            for (int counter = 0; counter < taskDatabase.size(); counter++) {
+                taskSummarization = taskSummarization + taskDatabase.get(counter).taskSummary();
+            }
+        }
+        return taskSummarization;
     }
 
 }

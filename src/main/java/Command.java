@@ -4,9 +4,18 @@
 public class Command {
 
     Database appDatabase;
+    IOoperations ioOperator;
+    String testRead;
+    Keyboard commandKeyboard;
 
     public Command(){
         appDatabase = new Database();
+        ioOperator = new IOoperations();
+        commandKeyboard = new Keyboard();
+        String[] fieldsFromDatabase = ioOperator.databaseRead().split(";");
+            for (int i = 0; i < (fieldsFromDatabase.length - 1); i = i + 2) {
+                appDatabase.addTask(fieldsFromDatabase[i], fieldsFromDatabase[i + 1]);
+            }
     }
 
     public boolean processCommand(String inputFromUser) {
@@ -15,9 +24,17 @@ public class Command {
                 System.out.println(appDatabase.showTasks());
                 return true;
             case "2":
-                System.out.println(appDatabase.addTask());
+                String name = "";
+                String project = "";
+                System.out.println("What is the name of the task?");
+                name = commandKeyboard.getInput();
+                System.out.println("What is the name of the project?");
+                project = commandKeyboard.getInput();
+                appDatabase.addTask(name, project);
+                System.out.println("Task successfully added.");
                 return true;
             case "4":
+                ioOperator.databaseSave(appDatabase.summarizeTasks());
                 System.out.println("You have chosen to quit. Have a nice day.");
                 return false;
             default:
