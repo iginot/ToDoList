@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
  */
 public class IOoperations
 {
-    public void databaseSave(String dataToSave)
+    public void databaseSave(Database dataToSave)
     {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -37,17 +37,16 @@ public class IOoperations
         }
     }
 
-    public String databaseRead() {
+    public Database databaseRead() {
 
-        String dataFromDatabase = "";
+        Database dataFromDatabase = new Database();
         FileInputStream fis = null;
         ObjectInputStream ois = null;
 
         try {
             fis = new FileInputStream("TaskDatabase.txt");
             ois = new ObjectInputStream(fis);
-            dataFromDatabase = (String) ois.readObject();
-
+            dataFromDatabase = (Database) ois.readObject();
 
         } catch(Exception e) {
             System.out.println("Database load unsuccessful.");

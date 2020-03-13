@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Place for task database and methods that are available to call on it.
  */
 
-public class Database
+public class Database implements Serializable
 {
     private ArrayList<Task> taskDatabase;
 

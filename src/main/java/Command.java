@@ -12,10 +12,12 @@ public class Command {
         appDatabase = new Database();
         ioOperator = new IOoperations();
         commandKeyboard = new Keyboard();
-        String[] fieldsFromDatabase = ioOperator.databaseRead().split(";");
+        //new code
+        appDatabase = ioOperator.databaseRead();
+/*        String[] fieldsFromDatabase = ioOperator.databaseRead().split(";");
             for (int i = 0; i < (fieldsFromDatabase.length - 1); i = i + 2) {
                 appDatabase.addTask(fieldsFromDatabase[i], fieldsFromDatabase[i + 1]);
-            }
+            }*/
     }
 
     public boolean processCommand(String inputFromUser) {
@@ -34,7 +36,7 @@ public class Command {
                 System.out.println("Task successfully added.");
                 return true;
             case "4":
-                ioOperator.databaseSave(appDatabase.summarizeTasks());
+                ioOperator.databaseSave(appDatabase);
                 System.out.println("You have chosen to quit. Have a nice day.");
                 return false;
             default:
