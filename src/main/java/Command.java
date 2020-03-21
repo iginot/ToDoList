@@ -30,6 +30,11 @@ public class Command {
                 appDatabase.addTask(name, project, deadline);
                 System.out.println("Task successfully added.");
                 return true;
+            case "3":
+                System.out.println("What task do you want to remove?");
+                String taskNumber = commandKeyboard.getInput();
+                appDatabase.removeTask(taskNumber);
+                return true;
             case "4":
                 ioOperator.databaseSave(appDatabase);
                 System.out.println("You have chosen to quit. Have a nice day.");

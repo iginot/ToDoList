@@ -30,9 +30,21 @@ public class Database implements Serializable
             output = "Current list of tasks contains:\n" +
                      "*******************************\n";
             for (int counter = 0; counter < taskDatabase.size(); counter++) {
-                output = output + taskDatabase.get(counter).toString() + "\n";
+                output = output + counter + ") " + taskDatabase.get(counter).toString() + "\n";
             }
         }
         return output;
+    }
+
+    public void removeTask(String taskNumber)
+    {
+        try{
+            int number = Integer.parseInt(taskNumber);
+            taskDatabase.remove(number);
+            System.out.println("Task removal successul");
+
+        } catch (Exception e){
+            System.out.println("Task removal unsuccessful");
+        }
     }
 }
