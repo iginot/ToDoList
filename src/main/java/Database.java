@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Place for task database and methods that are available to call on it.
@@ -14,9 +15,9 @@ public class Database implements Serializable
         taskDatabase = new ArrayList<Task>();
     }
 
-    public void addTask(String name, String project)
+    public void addTask(String name, String project, LocalDate deadline)
     {
-        Task testTask = new Task(name, project);
+        Task testTask = new Task(name, project, deadline);
         taskDatabase.add(testTask);
     }
 
@@ -34,17 +35,4 @@ public class Database implements Serializable
         }
         return output;
     }
-
-    public String summarizeTasks()
-    {
-        String taskSummarization = "";
-        if (taskDatabase.size() > 0)
-        {
-            for (int counter = 0; counter < taskDatabase.size(); counter++) {
-                taskSummarization = taskSummarization + taskDatabase.get(counter).taskSummary();
-            }
-        }
-        return taskSummarization;
-    }
-
 }
