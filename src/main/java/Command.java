@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * List all available user commands in application.
  */
@@ -5,19 +7,13 @@ public class Command {
 
     Database appDatabase;
     IOoperations ioOperator;
-    String testRead;
     Keyboard commandKeyboard;
 
     public Command(){
         appDatabase = new Database();
         ioOperator = new IOoperations();
         commandKeyboard = new Keyboard();
-        //new code
         appDatabase = ioOperator.databaseRead();
-/*        String[] fieldsFromDatabase = ioOperator.databaseRead().split(";");
-            for (int i = 0; i < (fieldsFromDatabase.length - 1); i = i + 2) {
-                appDatabase.addTask(fieldsFromDatabase[i], fieldsFromDatabase[i + 1]);
-            }*/
     }
 
     public boolean processCommand(String inputFromUser) {
@@ -26,13 +22,12 @@ public class Command {
                 System.out.println(appDatabase.showTasks());
                 return true;
             case "2":
-                String name = "";
-                String project = "";
                 System.out.println("What is the name of the task?");
-                name = commandKeyboard.getInput();
+                String name = commandKeyboard.getInput();
                 System.out.println("What is the name of the project?");
-                project = commandKeyboard.getInput();
-                appDatabase.addTask(name, project);
+                String project = commandKeyboard.getInput();
+                LocalDate deadline = getDeadline();
+                appDatabase.addTask(name, project, deadline);
                 System.out.println("Task successfully added.");
                 return true;
             case "4":
@@ -43,5 +38,19 @@ public class Command {
                 System.out.println("I don't understand. You can choose between options 1, 2 and 4.");
                 return true;
         }
+    }
+
+    private LocalDate getDeadline()
+    {
+        LocalDate processedDate = null;
+        System.out.println("When is the deadline? Date has format 2020-02-29");
+        String deadlineFromUser = commandKeyboard.getInput();
+        LocalDate convertedDate;
+        try {
+            processedDate = LocalDate.parse(deadlineFromUser);
+        } catch (Exception e) {
+            processedDate = LocalDate.now();
+        }
+        return processedDate;
     }
 }

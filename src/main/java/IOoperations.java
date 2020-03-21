@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 /**
  * This class is able to read from the file and also save changes in it.
  */
+
 public class IOoperations
 {
     public void databaseSave(Database dataToSave)
@@ -60,7 +61,7 @@ public class IOoperations
                     fis.close();
                 }
             } catch(Exception e) {
-                System.out.println("Database close unsuccessul.");
+                System.out.println("Database close unsuccessful.");
             } finally {
                 return dataFromDatabase;
             }
