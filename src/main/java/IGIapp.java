@@ -14,6 +14,7 @@ public class IGIapp {
         System.out.println("Pick an option:");
         System.out.println("(1) Show task list");
         System.out.println("(2) Add new task");
+        System.out.println("(3) Remove task");
         System.out.println("(4) Quit");
         System.out.println("*****************");
     }
