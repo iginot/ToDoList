@@ -21,14 +21,24 @@ public class Database implements Serializable
         taskDatabase.add(testTask);
     }
 
+    public boolean isDatabaseEmpty()
+    {
+        boolean isDatabaseEmpty = true;
+        if (taskDatabase.size() > 0){
+            isDatabaseEmpty = false;
+        }
+        return isDatabaseEmpty;
+    }
+
     public String showTasks()
     {
         String output = "";
-        if (taskDatabase.size() == 0) {
-            output = "Database is empty.";
+        if (isDatabaseEmpty()) {
+            output = "Database is empty.\n";
         } else {
             output = "Current list of tasks contains:\n" +
-                     "*******************************\n";
+                     "*******************************\n" +
+                     "#  date\t\t\tstatus\tproject\t\ttask\n";
             for (int counter = 0; counter < taskDatabase.size(); counter++) {
                 output = output + counter + ") " + taskDatabase.get(counter).toString() + "\n";
             }
@@ -36,16 +46,10 @@ public class Database implements Serializable
         return output;
     }
 
-    public void removeTask(String taskNumber)
+    public void removeTask(int taskNumber)
     {
-        try{
-            int number = Integer.parseInt(taskNumber);
-            taskDatabase.remove(number);
-            System.out.println("Task removal successful");
-
-        } catch (Exception e){
-            System.out.println("Task removal unsuccessful");
-        }
+        taskDatabase.remove(taskNumber);
+        System.out.println("Task was removed.\n");
     }
 
     public int getTasksCount(boolean isDone)
@@ -59,16 +63,37 @@ public class Database implements Serializable
         return countOfTasks;
     }
 
-    public void markTaskAsDone(String taskNumber)
+    public void markTaskAsDone(int taskNumber)
     {
-        try{
-            int number = Integer.parseInt(taskNumber);
-            taskDatabase.get(number).markAsDone();
-            System.out.println("Task removal successful");
+        taskDatabase.get(taskNumber).markAsDone();
+        System.out.println("Task is marked as done.\n");
+    }
 
-        } catch (Exception e){
-            System.out.println("Task removal unsuccessful");
+    public boolean existsSuchTask(int taskNumber)
+    {
+        if(taskNumber >= 0 && taskNumber < taskDatabase.size()) {
+            return true;
+        } else {
+            System.out.println("No such task.\n");
+            return false;
         }
     }
 
+    public void changeTaskDeadline(int taskNumber, LocalDate newDeadline)
+    {
+        taskDatabase.get(taskNumber).setDeadline(newDeadline);
+        System.out.println("Deadline was changed.\n");
+    }
+
+    public void changeTaskTitle(int taskNumber, String newTitle)
+    {
+        taskDatabase.get(taskNumber).setTitle(newTitle);
+        System.out.println("Task title was changed.\n");
+    }
+
+    public void changeTaskProject(int taskNumber, String newProject)
+    {
+        taskDatabase.get(taskNumber).setProject(newProject);
+        System.out.println("Task project was changed.\n");
+    }
 }
