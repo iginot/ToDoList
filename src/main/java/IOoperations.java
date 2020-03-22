@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 
 public class IOoperations
 {
-    public void databaseSave(Database dataToSave)
+    public void databaseSaveToFile(Database dataToSave)
     {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -38,7 +38,7 @@ public class IOoperations
         }
     }
 
-    public Database databaseRead() {
+    public Database databaseReadFromFile() {
 
         Database dataFromDatabase = new Database();
         FileInputStream fis = null;

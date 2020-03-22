@@ -41,10 +41,34 @@ public class Database implements Serializable
         try{
             int number = Integer.parseInt(taskNumber);
             taskDatabase.remove(number);
-            System.out.println("Task removal successul");
+            System.out.println("Task removal successful");
 
         } catch (Exception e){
             System.out.println("Task removal unsuccessful");
         }
     }
+
+    public int getTasksCount(boolean isDone)
+    {
+        int countOfTasks = 0;
+        for (Task task : taskDatabase) {
+            if (task.getStatus() == isDone){
+                countOfTasks++;
+            }
+        }
+        return countOfTasks;
+    }
+
+    public void markTaskAsDone(String taskNumber)
+    {
+        try{
+            int number = Integer.parseInt(taskNumber);
+            taskDatabase.get(number).markAsDone();
+            System.out.println("Task removal successful");
+
+        } catch (Exception e){
+            System.out.println("Task removal unsuccessful");
+        }
+    }
+
 }

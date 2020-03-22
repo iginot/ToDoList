@@ -7,20 +7,17 @@ public class IGIapp {
     /**
      * Print the welcome message on the screen.
      */
-    private void welcomeText() {
-        System.out.println("*****************");
-        System.out.println("Welcome to IGIapp");
-        System.out.println("You have 0 tasks to do and 0 tasks are done!");
+
+    private void showMenuText(){
         System.out.println("Pick an option:");
         System.out.println("(1) Show task list");
         System.out.println("(2) Add new task");
-        System.out.println("(3) Remove task");
+        System.out.println("(3) Edit task");
         System.out.println("(4) Quit");
-        System.out.println("*****************");
     }
 
     /**
-     * Run the application. User can type and system will respond. So far with limited options.
+     * Run the application. User can type and system will respond.
      */
     private void runtime() {
 
@@ -28,9 +25,10 @@ public class IGIapp {
         Keyboard scanner = new Keyboard();
         Command commander = new Command();
 
-        welcomeText();
+        commander.showWelcomeText();
 
         while (runtimeActive) {
+            showMenuText();
             runtimeActive = commander.processCommand(scanner.getInput());
         }
     }
