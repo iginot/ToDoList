@@ -8,16 +8,28 @@ public class Keyboard
 {
     private Scanner reader;
 
+    /**
+     * Create a keyboard object.
+     */
     public Keyboard()
     {
         reader = new Scanner(System.in);
     }
 
+    /**
+     * Return the String type of input provided by the user.
+     * @return String user input.
+     */
     public String getString()
     {
         return reader.nextLine();
     }
 
+    /**
+     * Return the LocalDate type of input provided by the user.
+     * If the input is not in correct format, used is repeatedly ask to provide correct one with example shown.
+     * @return LocalDate user input.
+     */
     public LocalDate getLocalDate()
     {
         LocalDate processedDate;
@@ -30,6 +42,11 @@ public class Keyboard
         return processedDate;
     }
 
+    /**
+     * Return the int type of input provided by the user.
+     * If the input is not in correct format, used is repeatedly ask to provide correct one.
+     * @return int user input.
+     */
     public int getInt()
     {
         int processedInt;
