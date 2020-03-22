@@ -10,22 +10,21 @@ public class Task implements Serializable
     private String title;
     private String project;
     private boolean isCompleted;
-    private LocalDate date;
+    private LocalDate deadline;
 
     public Task(String title, String project, LocalDate deadline)
     {
         this.title = title;
         this.project = project;
         isCompleted = false;
-        this.date = deadline;
+        this.deadline = deadline;
     }
 
     public String toString() {
         if (isCompleted) {
-            return ("You have done " + title + " with deadline " + date + " regarding project " + project + ".");
+            return (deadline + "\tdone\t" + project + "\t\t\t" + title);
         } else {
-            return ("You need to do " + title + " until " + date + " regarding project " + project + ".");
-
+            return (deadline + "\topen\t" + project + "\t\t\t" + title);
             }
         }
     public boolean getStatus()
@@ -36,5 +35,20 @@ public class Task implements Serializable
     public void markAsDone()
     {
         isCompleted = true;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public void setProject(String project)
+    {
+        this.project = project;
+    }
+
+    public void setDeadline(LocalDate deadline)
+    {
+        this.deadline = deadline;
     }
 }
