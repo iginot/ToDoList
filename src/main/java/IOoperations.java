@@ -4,40 +4,54 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * This class is able to read from the file and also save changes in it.
+ * Provide ability to read from the file and also save changes in it.
  */
 
 public class IOoperations
 {
+    /**
+     * Create a Input-output operations object.
+     */
+    public IOoperations()
+    {}
+
+    /**
+     * Save database of tasks to the file, when closing the application, so it will be available by next run.
+     * @param dataToSave whole database of tasks
+     */
     public void databaseSaveToFile(Database dataToSave)
     {
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
+        FileOutputStream fileOutputStream = null;
+        ObjectOutputStream objectOutputStream = null;
         try {
-            fos = new FileOutputStream("TaskDatabase.txt");
-            oos = new ObjectOutputStream(fos);
+            fileOutputStream = new FileOutputStream("TaskDatabase.txt");
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-            oos.writeObject(dataToSave);
+            objectOutputStream.writeObject(dataToSave);
 
-            oos.close();
-            fos.close();
+            objectOutputStream.close();
+            fileOutputStream.close();
 
         } catch (Exception e) {
             System.out.println("Database save unsuccessful.");
         } finally {
             try{
-                if (oos != null) {
-                    oos.close();
+                if (objectOutputStream != null) {
+                    objectOutputStream.close();
                 }
-                if (fos != null) {
-                    fos.close();
+                if (fileOutputStream != null) {
+                    fileOutputStream.close();
                 }
             } catch(Exception e) {
-                System.out.println("Database close unsuccessul.");
+                System.out.println("Database close unsuccessful.");
             }
         }
     }
 
+    /**
+     * Load database of tasks from file by startup of application.
+     * @return whole database of tasks
+     */
     public Database databaseReadFromFile() {
 
         Database dataFromDatabase = new Database();
