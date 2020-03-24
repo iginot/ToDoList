@@ -1,3 +1,7 @@
+package toDoList.util;
+
+import toDoList.data.Database;
+
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -24,7 +28,7 @@ public class IOoperations
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream("TaskDatabase.txt");
+            fileOutputStream = new FileOutputStream("TaskDatabase.bin");
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             objectOutputStream.writeObject(dataToSave);
@@ -59,7 +63,7 @@ public class IOoperations
         ObjectInputStream ois = null;
 
         try {
-            fis = new FileInputStream("TaskDatabase.txt");
+            fis = new FileInputStream("TaskDatabase.bin");
             ois = new ObjectInputStream(fis);
             dataFromDatabase = (Database) ois.readObject();
 
