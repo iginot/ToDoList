@@ -1,3 +1,7 @@
+package toDoList.util;
+
+import toDoList.data.Database;
+
 import java.time.LocalDate;
 
 /**
@@ -5,7 +9,7 @@ import java.time.LocalDate;
  */
 public class Command
 {
-    private Database appDatabase;
+    private toDoList.data.Database appDatabase;
     private IOoperations ioOperator;
     private Keyboard commandKeyboard;
 
