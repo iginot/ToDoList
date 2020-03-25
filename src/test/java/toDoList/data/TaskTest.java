@@ -17,7 +17,7 @@ public class TaskTest
     {
         Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
         String stringOfOpenTask = sampleOpenTask.toString();
-        assertEquals(stringOfOpenTask, "2020-12-31\topen\tsampleProject\t\t\tsampleTitle");
+        assertEquals(stringOfOpenTask, "2020-12-31\topen\tsampleProject       \tsampleTitle");
     }
 
     /**
@@ -87,7 +87,7 @@ public class TaskTest
         Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
         sampleOpenTask.markAsDone();
         String stringOfOpenTask = sampleOpenTask.toString();
-        assertEquals(stringOfOpenTask, "2020-12-31\tdone\tsampleProject\t\t\tsampleTitle");
+        assertEquals(stringOfOpenTask, "2020-12-31\tdone\tsampleProject       \tsampleTitle");
     }
 
     /**
@@ -99,7 +99,7 @@ public class TaskTest
         Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
         sampleOpenTask.setTitle("changedTitle");
         String taskWithChangedTitle = sampleOpenTask.toString();
-        assertEquals(taskWithChangedTitle, "2020-12-31\topen\tsampleProject\t\t\tchangedTitle");
+        assertEquals(taskWithChangedTitle, "2020-12-31\topen\tsampleProject       \tchangedTitle");
     }
 
     /**
