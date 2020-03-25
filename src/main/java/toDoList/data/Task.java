@@ -32,13 +32,14 @@ public class Task implements Serializable
      * @return Summary of all task fields in one String.
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         if (isCompleted) {
             return (deadline + "\tdone\t" + project + "\t\t\t" + title);
         } else {
             return (deadline + "\topen\t" + project + "\t\t\t" + title);
-            }
         }
+    }
 
     /**
      * Return information, if the task has been completed.
