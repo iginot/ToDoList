@@ -60,7 +60,7 @@ public class Database implements Serializable
         } else {
             textOutput = "Current list of tasks contains:\n" +
                      "*******************************\n" +
-                     "#  date\t\t\tstatus\tproject\t\ttask\n";
+                     "#  date\t\t\tstatus\tproject\t\t\t\t\ttask\n";
             for (int counter = 0; counter < taskDatabase.size(); counter++) {
                 textOutput = textOutput + counter + ") " + taskDatabase.get(counter).toString() + "\n";
             }

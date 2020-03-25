@@ -34,10 +34,20 @@ public class Task implements Serializable
     @Override
     public String toString()
     {
-        if (isCompleted) {
-            return (deadline + "\tdone\t" + project + "\t\t\t" + title);
+        // cuts the project field to chosen number of characters, to make summary of tasks more readable
+        int showedProjectLength = 20;
+        String showedProject;
+        String oneSpace = " ";
+        if (project.length() > showedProjectLength) {
+            showedProject = project.substring(0, showedProjectLength);
         } else {
-            return (deadline + "\topen\t" + project + "\t\t\t" + title);
+            showedProject = project + oneSpace.repeat(showedProjectLength - project.length());
+        }
+
+        if (isCompleted) {
+            return (deadline + "\tdone\t" + showedProject + "\t" + title);
+        } else {
+            return (deadline + "\topen\t" + showedProject + "\t" + title);
         }
     }
 
