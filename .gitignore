@@ -4,6 +4,7 @@
 *.xml
 *.iml
 *.bin
+*.pages
 .idea/
 build/
 *gradle*
