@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * Place for task database and methods that are available to call on it.
+ * Class that hosts task database and provide methods that are available to call on it.
  */
 public class Database implements Serializable
 {
@@ -23,13 +23,13 @@ public class Database implements Serializable
 
     /**
      * Add new task to the database of tasks.
-     * @param name Text of the task.
+     * @param title Text of the task.
      * @param project Project to which the task can be related to.
      * @param deadline Deadline of the task.
      */
-    public void addTask(String name, String project, LocalDate deadline)
+    public void addTask(String title, String project, LocalDate deadline)
     {
-        Task testTask = new Task(name, project, deadline);
+        Task testTask = new Task(title, project, deadline);
         taskDatabase.add(testTask);
     }
 
@@ -41,13 +41,13 @@ public class Database implements Serializable
     @Override
     public String toString()
     {
-        String textOutput = "";
+        String textOutput;
         if (getTasksCount() == 0) {
             textOutput = "Database is empty.\n";
         } else {
             textOutput = "Current list of tasks contains:\n" +
                      "*******************************\n" +
-                     "#  date\t\t\tstatus\tproject\t\t\t\t\ttask\n";
+                     "#  date\t\t\tstatus\tproject\t\t\t\t\ttitle\n";
             for (int counter = 0; counter < getTasksCount(); counter++) {
                 textOutput = textOutput + counter + ") " + taskDatabase.get(counter).toString() + "\n";
             }
@@ -84,26 +84,11 @@ public class Database implements Serializable
     {
         int countOfTasks = 0;
         for (Task task : taskDatabase) {
-            if (task.getIsCompleted() == isCompleted){
+            if (task.getIsCompleted() == isCompleted) {
                 countOfTasks++;
             }
         }
         return countOfTasks;
-    }
-
-    /**
-     * Verify, if there is a task on provided position in the database. Inform user, if such task doesn't exist.
-     * @param taskNumber Position of the task in the database.
-     * @return True - if such task exist or false - if such task doesn't exist.
-     */
-    public boolean existsSuchTask(int taskNumber)
-    {
-        if(taskNumber >= 0 && taskNumber < taskDatabase.size()) {
-            return true;
-        } else {
-            System.out.println("No such task.\n");
-            return false;
-        }
     }
 
     /**
@@ -155,20 +140,18 @@ public class Database implements Serializable
     }
 
     /**
-     * Sort task database by deadline, oldest first.
+     * Sort task database by chosen attribute in alphabetical or chronological order.
+     * @param sortField can use "taskProject" or "taskTitle" value to sort by project or title, otherwise sort chronologically
      */
-    public void sortByDeadline(){
-        Comparator<Task> compareByDeadline = (Task t1, Task t2) ->
-                t1.getDeadline().compareTo( t2.getDeadline() );
-        Collections.sort(taskDatabase, compareByDeadline);
-    }
-
-    /**
-     * Sort task database by project name in alphabetical order.
-     */
-    public void sortByProject(){
-        Comparator<Task> compareByProject = (Task t1, Task t2) ->
-                t1.getProject().compareTo( t2.getProject() );
-        Collections.sort(taskDatabase, compareByProject);
+    public void sortTasks(String sortField){
+        Comparator<Task> compare;
+        if(sortField.equals("taskProject")) {
+            compare = (Task t1, Task t2) -> t1.getProject().compareTo(t2.getProject());
+        } else if(sortField.equals("taskTitle")) {
+            compare = (Task t1, Task t2) -> t1.getTitle().compareTo(t2.getTitle());
+        } else {
+            compare = (Task t1, Task t2) -> t1.getDeadline().compareTo(t2.getDeadline());
+        }
+        Collections.sort(taskDatabase, compare);
     }
 }

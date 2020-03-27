@@ -20,7 +20,7 @@ public class Keyboard
 
     /**
      * Return the String type of input provided by the user.
-     * @return String user input.
+     * @return user input as String value.
      */
     public String getString()
     {
@@ -29,8 +29,8 @@ public class Keyboard
 
     /**
      * Return the LocalDate type of input provided by the user.
-     * If the input is not in correct format, used is repeatedly ask to provide correct one with example shown.
-     * @return LocalDate user input.
+     * If the input is not in the correct format, used is repeatedly asked to provide correct one with example shown.
+     * @return user input as LocalDate value.
      */
     public LocalDate getLocalDate()
     {
@@ -46,8 +46,8 @@ public class Keyboard
 
     /**
      * Return the int type of input provided by the user.
-     * If the input is not in correct format, used is repeatedly ask to provide correct one.
-     * @return int user input.
+     * If the input is not in the correct format, used is repeatedly asked to provide correct one.
+     * @return user input as int value.
      */
     public int getInt()
     {

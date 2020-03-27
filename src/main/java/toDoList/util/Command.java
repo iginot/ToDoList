@@ -34,13 +34,14 @@ public class Command
     public boolean processCommand(String inputFromUser)
     {
         switch (inputFromUser) {
-            case "1": //show task
+            case "1": //show tasks
                 if (appDatabase.getTasksCount() == 0) {
-                    System.out.println("Database is empty\n");
+                    System.out.println("Database is empty.\n");
                 } else {
                     System.out.println("How do you want to sort the list?\n" +
                             "1) By date\n" +
-                            "2) By project");
+                            "2) By project\n" +
+                            "3) By title");
 
                     processShowTasksCommand(commandKeyboard.getString());
                     System.out.println(appDatabase.toString());
@@ -48,7 +49,7 @@ public class Command
                 return true;
 
             case "2": //add task
-                System.out.println("What is the name of the task?");
+                System.out.println("What is the title of the task?");
                 String taskName = commandKeyboard.getString();
 
                 System.out.println("What is the name of the project?");
@@ -64,14 +65,15 @@ public class Command
 
             case "3": //edit task
                 if (appDatabase.getTasksCount() == 0) {
-                    System.out.println("Database is empty\n");
+                    System.out.println("Database is empty.\n");
                 } else {
                     System.out.println(appDatabase.toString() +
                                        "\nWhich task do you want to edit?");
 
                     int taskNumber = commandKeyboard.getInt();
-
-                    if (appDatabase.existsSuchTask(taskNumber)) {
+                    if (taskNumber < 0 || taskNumber >= appDatabase.getTasksCount()) {
+                        System.out.println("No such task.\n");
+                    } else {
                         System.out.println("What to you want to do?\n" +
                                 "1) mark as done\n" +
                                 "2) change title\n" +
@@ -104,7 +106,7 @@ public class Command
      */
     private void processEditCommand(String inputFromUser, int taskNumber) {
         switch (inputFromUser) {
-            case "1":
+            case "1": //mark as done
                 appDatabase.changeTaskInformation(taskNumber, true);
                 break;
             case "2":
@@ -122,7 +124,7 @@ public class Command
             case "5":
                 appDatabase.removeTask(taskNumber);
                 break;
-            case "0":
+            case "0": //return to previous menu
                 break;
             default:
                 System.out.println("I don't understand. You can choose between options 1, 2, 3, 4, 5 and 0.");
@@ -131,20 +133,23 @@ public class Command
     }
 
     /**
-     *Process sub-command in the Show task menu.
+     *Process sub-command in the Show tasks menu.
      * @param inputFromUser Command entered by user.
      */
     private void processShowTasksCommand(String inputFromUser)
     {
         switch (inputFromUser) {
             case "1":
-                appDatabase.sortByDeadline();
+                appDatabase.sortTasks("taskDeadline");
                 break;
             case "2":
-                appDatabase.sortByProject();
+                appDatabase.sortTasks("taskProject");
+                break;
+            case "3":
+                appDatabase.sortTasks("taskTitle");
                 break;
             default:
-                System.out.println("I don't understand. You can choose between options 1 and 2.");
+                System.out.println("I don't understand. You can choose between options 1, 2 and 3.");
                 processShowTasksCommand(commandKeyboard.getString());
         }
     }
