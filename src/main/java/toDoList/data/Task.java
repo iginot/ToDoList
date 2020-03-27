@@ -34,20 +34,22 @@ public class Task implements Serializable
     @Override
     public String toString()
     {
-        // cuts the project field to chosen number of characters, to make summary of tasks more readable
         int showedProjectLength = 20;
-        String showedProject;
+        // cut the project attribute to chosen number of characters, to make summary of tasks more readable
+
+        String displayedProject;
         String oneSpace = " ";
+
         if (project.length() > showedProjectLength) {
-            showedProject = project.substring(0, showedProjectLength);
+            displayedProject = project.substring(0, showedProjectLength);
         } else {
-            showedProject = project + oneSpace.repeat(showedProjectLength - project.length());
+            displayedProject = project + oneSpace.repeat(showedProjectLength - project.length());
         }
 
         if (isCompleted) {
-            return (deadline + "\tdone\t" + showedProject + "\t" + title);
+            return (deadline + "\tdone\t" + displayedProject + "\t" + title);
         } else {
-            return (deadline + "\topen\t" + showedProject + "\t" + title);
+            return (deadline + "\topen\t" + displayedProject + "\t" + title);
         }
     }
 
@@ -79,7 +81,17 @@ public class Task implements Serializable
     }
 
     /**
-     * Mark task as completed regardless of previous status.
+     * Return title of the task.
+     * @return Task title.
+     */
+    public String getTitle()
+    {
+        return title;
+    }
+
+    /**
+     * Change the isCompleted status of the task.
+     * @param isCompleted New status of the task.
      */
     public void setIsCompleted(boolean isCompleted)
     {

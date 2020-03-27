@@ -43,6 +43,17 @@ public class TaskTest
     }
 
     /**
+     * Testing getTitle method with sample task.
+     */
+    @Test
+    public void testGetTitleForTask()
+    {
+        Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
+        String projectOfTask = sampleOpenTask.getTitle();
+        assertEquals(projectOfTask, "sampleTitle");
+    }
+
+    /**
      * Testing getProject method with sample task.
      */
     @Test
