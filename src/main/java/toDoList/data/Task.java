@@ -55,7 +55,7 @@ public class Task implements Serializable
      * Return information, if the task has been completed.
      * @return Task status, true if it has been completed.
      */
-    public boolean getStatus()
+    public boolean getIsCompleted()
     {
         return isCompleted;
     }
@@ -81,9 +81,9 @@ public class Task implements Serializable
     /**
      * Mark task as completed regardless of previous status.
      */
-    public void markAsDone()
+    public void setIsCompleted(boolean isCompleted)
     {
-        isCompleted = true;
+        this.isCompleted = isCompleted;
     }
 
     /**
