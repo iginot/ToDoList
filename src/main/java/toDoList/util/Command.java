@@ -35,13 +35,16 @@ public class Command
     {
         switch (inputFromUser) {
             case "1": //show task
-                System.out.println("How do you want to sort the list?\n" +
-                                   "1) By date\n" +
-                                   "2) By project");
+                if (appDatabase.getTasksCount() == 0) {
+                    System.out.println("Database is empty\n");
+                } else {
+                    System.out.println("How do you want to sort the list?\n" +
+                            "1) By date\n" +
+                            "2) By project");
 
-                processShowTasksCommand(commandKeyboard.getString());
-                System.out.println(appDatabase.showTasks());
-
+                    processShowTasksCommand(commandKeyboard.getString());
+                    System.out.println(appDatabase.toString());
+                }
                 return true;
 
             case "2": //add task
@@ -60,10 +63,10 @@ public class Command
                 return true;
 
             case "3": //edit task
-                if (appDatabase.isDatabaseEmpty()){
-                    System.out.println("Database is empty");
+                if (appDatabase.getTasksCount() == 0) {
+                    System.out.println("Database is empty\n");
                 } else {
-                    System.out.println(appDatabase.showTasks() +
+                    System.out.println(appDatabase.toString() +
                                        "\nWhich task do you want to edit?");
 
                     int taskNumber = commandKeyboard.getInt();
@@ -102,19 +105,19 @@ public class Command
     private void processEditCommand(String inputFromUser, int taskNumber) {
         switch (inputFromUser) {
             case "1":
-                appDatabase.markTaskAsDone(taskNumber);
+                appDatabase.changeTaskInformation(taskNumber, true);
                 break;
             case "2":
                 System.out.println("Enter new task title:");
-                appDatabase.changeTaskTitle(taskNumber, commandKeyboard.getString());
+                appDatabase.changeTaskInformation(commandKeyboard.getString(), taskNumber);
                 break;
             case "3":
                 System.out.println("Enter new task project:");
-                appDatabase.changeTaskProject(taskNumber, commandKeyboard.getString());
+                appDatabase.changeTaskInformation(taskNumber, commandKeyboard.getString());
                 break;
             case "4":
                 System.out.println("Enter new task deadline:");
-                appDatabase.changeTaskDeadline(taskNumber, commandKeyboard.getLocalDate());
+                appDatabase.changeTaskInformation(taskNumber, commandKeyboard.getLocalDate());
                 break;
             case "5":
                 appDatabase.removeTask(taskNumber);

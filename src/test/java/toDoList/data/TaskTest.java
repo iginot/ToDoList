@@ -21,13 +21,13 @@ public class TaskTest
     }
 
     /**
-     * Testing getStatus method with task that has false value in boolean isCompleted, so it is still open.
+     * Testing getIsCompleted method with task that has false value in boolean isCompleted, so it is still open.
      */
     @Test
-    public void testGetStatusForTaskWithOpenStatus()
+    public void testGetIsCompletedForTaskWithOpenStatus()
     {
         Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
-        boolean statusOfOpenTask = sampleOpenTask.getStatus();
+        boolean statusOfOpenTask = sampleOpenTask.getIsCompleted();
         assertEquals(statusOfOpenTask, false);
     }
 
@@ -54,28 +54,15 @@ public class TaskTest
     }
 
     /**
-     * Testing markAsDone method with open task.
+     * Testing setIsCompleted method with open task.
      */
     @Test
-    public void testMarkAsDoneForOpenTask()
+    public void testSetIsCompletedForOpenTask()
     {
         Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
-        sampleOpenTask.markAsDone();
-        boolean statusOfTaskAfterwards = sampleOpenTask.getStatus();
+        sampleOpenTask.setIsCompleted(true);
+        boolean statusOfTaskAfterwards = sampleOpenTask.getIsCompleted();
         assertEquals(statusOfTaskAfterwards, true);
-    }
-
-    /**
-     * Testing markAsDone method twice in a row to make sure it's not setting back status to open.
-     */
-    @Test
-    public void testMarkAsDoneForClosedTask()
-    {
-        Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
-        sampleOpenTask.markAsDone();
-        sampleOpenTask.markAsDone();
-        boolean statusOfTaskAfterTwoCalls = sampleOpenTask.getStatus();
-        assertEquals(statusOfTaskAfterTwoCalls, true);
     }
 
     /**
@@ -85,7 +72,7 @@ public class TaskTest
     public void testToStringForTaskWithClosedStatus()
     {
         Task sampleOpenTask = new Task("sampleTitle", "sampleProject", LocalDate.parse("2020-12-31"));
-        sampleOpenTask.markAsDone();
+        sampleOpenTask.setIsCompleted(true);
         String stringOfOpenTask = sampleOpenTask.toString();
         assertEquals(stringOfOpenTask, "2020-12-31\tdone\tsampleProject       \tsampleTitle");
     }

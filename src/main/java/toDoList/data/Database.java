@@ -34,34 +34,21 @@ public class Database implements Serializable
     }
 
     /**
-     * Check if the database of tasks is empty or if it contains some tasks.
-     * If the database is empty, edit task in menu is disabled.
-     * @return True, if the Database is empty, otherwise false.
-     */
-    public boolean isDatabaseEmpty()
-    {
-        boolean isDatabaseEmpty = true;
-        if (taskDatabase.size() > 0){
-            isDatabaseEmpty = false;
-        }
-        return isDatabaseEmpty;
-    }
-
-    /**
      * Provide text output of all tasks in the system in a form of table that can be displayed to user.
      * In case of the empty database, the output is reduced to simple sentence.
      * @return Text output of all tasks.
      */
-    public String showTasks()
+    @Override
+    public String toString()
     {
         String textOutput = "";
-        if (isDatabaseEmpty()) {
+        if (getTasksCount() == 0) {
             textOutput = "Database is empty.\n";
         } else {
             textOutput = "Current list of tasks contains:\n" +
                      "*******************************\n" +
                      "#  date\t\t\tstatus\tproject\t\t\t\t\ttask\n";
-            for (int counter = 0; counter < taskDatabase.size(); counter++) {
+            for (int counter = 0; counter < getTasksCount(); counter++) {
                 textOutput = textOutput + counter + ") " + taskDatabase.get(counter).toString() + "\n";
             }
         }
@@ -71,6 +58,7 @@ public class Database implements Serializable
     /**
      * Remove the task from the database.
      * @param taskNumber Position of task in the database.
+     * Throws: IndexOutOfBoundsException - if the index is out of range.
      */
     public void removeTask(int taskNumber)
     {
@@ -79,29 +67,28 @@ public class Database implements Serializable
     }
 
     /**
+     * Return the number of tasks that are stored in the database.
+     * @return Number of tasks.
+     */
+    public int getTasksCount()
+    {
+        return taskDatabase.size();
+    }
+
+    /**
      * Return the number of tasks of specific task status.
-     * @param isDone Status of task (true - task done, false - task open).
+     * @param isCompleted Status of task (true - task done, false - task open).
      * @return Filtered number of tasks.
      */
-    public int getTasksCount(boolean isDone)
+    public int getTasksCount(boolean isCompleted)
     {
         int countOfTasks = 0;
         for (Task task : taskDatabase) {
-            if (task.getStatus() == isDone){
+            if (task.getIsCompleted() == isCompleted){
                 countOfTasks++;
             }
         }
         return countOfTasks;
-    }
-
-    /**
-     * Mark chosen task as done and inform the user about it.
-     * @param taskNumber Position of the task in the database.
-     */
-    public void markTaskAsDone(int taskNumber)
-    {
-        taskDatabase.get(taskNumber).markAsDone();
-        System.out.println("Task is marked as done.\n");
     }
 
     /**
@@ -120,11 +107,24 @@ public class Database implements Serializable
     }
 
     /**
+     * Change isCompleted status of specified task.
+     * @param taskNumber Position of the task in the database.
+     * @param newIsCompleted New isCompleted status of the task.
+     * Throws: IndexOutOfBoundsException - if the index is out of range.
+     */
+    public void changeTaskInformation(int taskNumber, boolean newIsCompleted)
+    {
+        taskDatabase.get(taskNumber).setIsCompleted(newIsCompleted);
+        System.out.println("Task status was changed.\n");
+    }
+
+    /**
      * Change deadline of specified task.
      * @param taskNumber Position of the task in the database.
      * @param newDeadline New deadline of the task.
+     * Throws: IndexOutOfBoundsException - if the index is out of range.
      */
-    public void changeTaskDeadline(int taskNumber, LocalDate newDeadline)
+    public void changeTaskInformation(int taskNumber, LocalDate newDeadline)
     {
         taskDatabase.get(taskNumber).setDeadline(newDeadline);
         System.out.println("Deadline was changed.\n");
@@ -132,10 +132,11 @@ public class Database implements Serializable
 
     /**
      * Change title text of specified task.
-     * @param taskNumber Position of the task in the database.
      * @param newTitle New title of the task.
+     * @param taskNumber Position of the task in the database.
+     * Throws: IndexOutOfBoundsException - if the index is out of range.
      */
-    public void changeTaskTitle(int taskNumber, String newTitle)
+    public void changeTaskInformation(String newTitle, int taskNumber)
     {
         taskDatabase.get(taskNumber).setTitle(newTitle);
         System.out.println("Task title was changed.\n");
@@ -145,8 +146,9 @@ public class Database implements Serializable
      * Change project of specified task.
      * @param taskNumber Position of the task in the database.
      * @param newProject New project name of the task.
+     * Throws: IndexOutOfBoundsException - if the index is out of range.
      */
-    public void changeTaskProject(int taskNumber, String newProject)
+    public void changeTaskInformation(int taskNumber, String newProject)
     {
         taskDatabase.get(taskNumber).setProject(newProject);
         System.out.println("Task project was changed.\n");
